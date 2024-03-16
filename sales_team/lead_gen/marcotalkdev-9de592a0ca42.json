@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "marcotalkdev",
+  "private_key_id": "9de592a0ca42be08cbd4cfc3b5d02268a882e2aa",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDGhQtysCsJpVaz\nDvAPfjfYiJ2MMcOSZaHZQIICVLD3cgItT8U/lMYlyVmkDFj9N4Pz2fs9MNliaqfe\nWQ09N8Y1QSMKDe7BIRWcaqNsiU4SYUfGItBAaRbW0NR28lO8vNOofiLEYlBbBAEj\n9RvYWCSb5zEppBVYN9KzfxsE9cGmhbIWJr7vS8X8kM+U8vRshqXbxGSBHgi4M8v/\nGJtC19mqT+Y0vcyUWbHtxphvEfUVWqDJ9Xl1BkVNQ46owoucJJf6KFy7pnWCcjx4\n/nmRelHqYX524r9qpjjVeotPbXeUz/5a43toEWq7SFzUjZVm2M5BiUcTgGEFwIsz\ngYK+liXJAgMBAAECggEACNR0HObPEz/CanZ4oQfJLh1tfIXeIA3bNBGVdssTj/4H\nMMLCkEBqy9V34j8WWjT07oy8iw04LhN2YgJt/1ISw92g1FqoSvjQwENR/4rf6Rtg\nmOSFhMfn1yg0uxGuPc/cTjtGCpwg3NuBvXqygV3ySujum96LgIADJC68Ie1YbrKh\nmdPC2ZcpzVs/v6A7T2gz4zd1kidys3XHRvIS3KjUr6yrA9OA0+tK8bUeHTSJ4Lri\n8wLujJxI1+8N3qp7u5OdgcmXzn2xrBfXxDX74SsMz8GCFmuxdU6SqDqn1su51GUw\nCA4Ef4dtrlLuS+HM4kPAiw0QbXOYyP7HiVaOI8UtMQKBgQDkXQ8DE6+mn1RbGglG\nlBkGzp0XrZGZkHmuFyuOjYOu7VUrLUXV8YynznILewty9vSXuoBcwAHgBNHTy5H9\n4+wThjRzq0OA6GaQpuITYnYEiWMlen5By5jKt/SvTxXIPr6fVw4w7UBq8i4aB/Dk\nfUyHpVhDBwK9nO6233/dVtrsvQKBgQDei2TIHzs4hfsbQ6y8ixmjUVxGcwfskpBW\nOU5I+jU5LzRH8IBsuAsNuRm5zT0gQwp3Mpi37ZbBIA4oUHfq5KDBGjC39t/SzyHn\nAf7iFitieR3NLh5rcTTz+Qyo2XnK5svd5VrRrVH9nJxyJsvfMEa87FG7MwrVreK7\ndt0SAw9b/QKBgQDXxwqZSK+vTFuj3V0oYGWpZe9P4URziu0+z0vr3dGwpzbTnmqf\ndicGpG5kZLZzwd9pwuLpQNBEwakWbAMdmJCH/kZviUM2eeH4CogR8vY64Spaznyg\nZOWRnvJH9/1IAemSm+qf1n4Iz586H4jCDZcTkOtuIiC306JID7U9CoXALQKBgDt1\ndtnZLlNtyKeCL1a4u4LdLBBOj6Fvj0zaRsZMw4ehyxAle8qQabOi7vKrmVdTUiqC\nxDbwLcUvsVioF0IVD7ZILxgXx7llSiOUbustDS5kOcgmOE5wkrtUoUNDx7ykaXfB\n3cAD1NIz08DUCMh694tmgHfJrW1l5hw8J9i2JJZpAoGBALmKx7vuqID9l5IVToo+\nLzUT4JM1pAiB/dtUTOo9D27KMQyCs5MoNNUvf9PjAlUR3rBwq5OeRYYKM8fx/CXI\nhT9M41hFgYnDpCOvG1KB7TIQy3tpemSHvClvojXbB9RItUhIPuvIeTLZU0Vyw3PX\nue69mRT8OhsMqGi4Sx8/ALi1\n-----END PRIVATE KEY-----\n",
+  "client_email": "vertex-ai-auth@marcotalkdev.iam.gserviceaccount.com",
+  "client_id": "107153431431191022203",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/vertex-ai-auth%40marcotalkdev.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

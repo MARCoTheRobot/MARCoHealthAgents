@@ -41,14 +41,19 @@ class CustomCrew:
 
         # Define your custom agents and tasks here
         research_agent = agents.researcher()
+        lead_gen_agent = agents.lead_generator()
         copywriting_agent = agents.email_copywriter()
 
         # Custom tasks include agent name and variables as input
-        research_task = tasks.lead_generation(
+        research_task = tasks.firm_lead_generation(
             research_agent,
             self.company_name,
             self.company_description,
             self.company_stage,
+        )
+
+        lead_gen_task = tasks.lead_generation(
+            research_agent
         )
 
         copywriting_task = tasks.email_copywriting(
@@ -61,8 +66,8 @@ class CustomCrew:
 
         # Define your custom crew here
         crew = Crew(
-            agents=[research_agent, copywriting_agent],
-            tasks=[research_task, copywriting_task],
+            agents=[research_agent, lead_gen_agent, copywriting_agent],
+            tasks=[research_task, lead_gen_task, copywriting_task],
             verbose=True,
         )
 

@@ -9,7 +9,7 @@ class CustomTasks:
     def __tip_section(self):
         return "If you do your BEST WORK, I'll give you a $10,000 commission! Be thorough and professional."
 
-    def lead_generation(self, agent, company_name, company_description, company_stage):
+    def firm_lead_generation(self, agent, company_name, company_description, company_stage):
         return Task(
             description=dedent(
                 f"""
@@ -23,7 +23,23 @@ class CustomTasks:
         """
             ),
             expected_output=dedent("""\
-								A CSV list of 10 investment firms with detailed information about each firm's investment history, portfolio companies, average investment size, thesis, and contact information'"""),
+								A CSV list of 10 investment firms formatted with the following headers: Investment Firm Name, Notes, Website, General Email, Application Link (Optional), Location, Stages of Investment, Portfolio Companies, Average Investment Size, Thesis, Contact Information'"""),
+            agent=agent,
+        )
+    
+    def lead_generation(self, agent):
+        return Task(
+            description=dedent(
+                f"""
+            Based on a list of investors provided from the first step in the process, find the names, emails, LinkedIn profiles, and phone numbers of investors and partners at VC firms and organize them into a list.
+            
+            {self.__tip_section()}
+        
+            Make sure to use the most recent data as possible from the internet.
+        """
+            ),
+            expected_output=dedent("""\
+                                A CSV list of investor names and contact information formatted with the following headers: Name, first_name, last_name, Email, LinkedIn, Phone Number, Bio'"""),
             agent=agent,
         )
 
