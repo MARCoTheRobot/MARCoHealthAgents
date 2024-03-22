@@ -19,8 +19,6 @@ load_dotenv()
 # search_tool = DuckDuckGoSearchRun()
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = './marcotalkdev-9de592a0ca42.json'
-# os.environ["GOOGLE_API_KEY"] = os.get
-# os.environ["SERPER_API_KEY"] = "4bea7bd2d55f035a29de22f73f6e3e8e289c406e"
 # This is the main class that you will use to define your custom crew.
 # You can define as many agents and tasks as you want in agents.py and tasks.py
 

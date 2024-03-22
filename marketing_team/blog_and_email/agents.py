@@ -14,8 +14,7 @@ search_tool = SerperDevTool()
 class MarketingAgents:
     def __init__(self):
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = './marcotalkdev-9de592a0ca42.json'
-        os.environ["GOOGLE_API_KEY"] = "AIzaSyDDRR5s1oS7VWA8f-g4vd7Dy4vUEjzGy5k"
-        os.environ["SERPER_API_KEY"] = "c60ef23e3e8de39f66bd250da3aaceb5476375ea"
+
         self.GeminiPro = ChatGoogleGenerativeAI(model="gemini-pro", temperature=0.9, max_tokens=1040, top_p=1.0, frequency_penalty=0.0, presence_penalty=0.0, stop=["\n", "###"])
 
     def project_researcher(self):
