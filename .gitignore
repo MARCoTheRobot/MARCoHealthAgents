@@ -1,1 +1,9 @@
 .DS_Store
+marcotalkdev-9de592a0ca42.json
+.env
+.env_example
+output.txt
+output_old.txt
+agents.txt
+tasks.txt
+engineering/ai_project_manager/output.txt

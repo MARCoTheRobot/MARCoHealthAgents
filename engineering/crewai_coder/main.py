@@ -1,4 +1,5 @@
 import os
+from dotenv import load_dotenv
 from crewai import Agent, Task, Crew, Process
 from langchain_google_genai import ChatGoogleGenerativeAI
 from decouple import config
@@ -8,7 +9,6 @@ from agents import AIProjectManagerAgents
 from tasks import CustomTasks
 from langchain_google_genai import ChatGoogleGenerativeAI
 from crewai_tools import SerperDevTool
-from dotenv import load_dotenv
 load_dotenv()
 
 # Install duckduckgo-search for this example:
@@ -19,16 +19,18 @@ load_dotenv()
 # search_tool = DuckDuckGoSearchRun()
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = './marcotalkdev-9de592a0ca42.json'
-# os.environ["GOOGLE_API_KEY"] = "AIzaSyDDRR5s1oS7VWA8f-g4vd7Dy4vUEjzGy5k"
-# os.environ["SERPER_API_KEY"] = "c60ef23e3e8de39f66bd250da3aaceb5476375ea"
+# os.environ["GOOGLE_API_KEY"] = os.get
+# os.environ["SERPER_API_KEY"] = "4bea7bd2d55f035a29de22f73f6e3e8e289c406e"
 # This is the main class that you will use to define your custom crew.
 # You can define as many agents and tasks as you want in agents.py and tasks.py
 
 
 class CustomCrew:
     def __init__(self):
-        self.user_story = input(dedent("""What is the user story that you need to accomplish?"""))
-        self.GeminiPro = ChatGoogleGenerativeAI(model="gemini-pro")
+        self.use_case = input(dedent("""What is the project or operation that this team needs to tackle?"""))
+        self.additional_details = input(dedent("""What are the additional details for the project or process that would be useful to the team?"""))
+        # self.GeminiPro = ChatGoogleGenerativeAI(model="gemini-pro")
+        self.GeminiPro = ChatGoogleGenerativeAI(model="gemini-pro", temperature=1, max_tokens=2048, top_p=1.0, frequency_penalty=0.0, presence_penalty=0.0, stop=["\n", "###"])
 
     def run(self):
         # Define your custom agents and tasks in agents.py and tasks.py
@@ -39,22 +41,35 @@ class CustomCrew:
         print("Added agent")
 
         # Define your custom agents and tasks here
-        # research_agent = agents.researcher()
-        # lead_gen_agent = agents.lead_generator()
-        # copywriting_agent = agents.email_copywriter()
-        prompt_engineer = agents.prompt_engineer()
+
+        # First is the project manager, who will be writing up the detailed project description based on the user input
+        project_manager = agents.project_manger()
+
+        # Second agent is the prompt engineer focused on developing AI agents for the project
+        agent_engineer = agents.agent_prompt_engineer()
+
+        # Third agent is the task engineer
+        task_engineer = agents.task_prompt_engineer()
 
         # Custom tasks include agent name and variables as input
-        # research_task = tasks.firm_lead_generation(
-        #     research_agent,
-        #     self.company_name,
-        #     self.company_description,
-        #     self.company_stage,
-        # )
 
-        prompt_engineer_task = tasks.chat_prompt_engineering(
-            prompt_engineer,
-            self.user_story
+
+        project_manager_task = tasks.project_description_writing(
+            project_manager,
+            self.use_case,
+            self.additional_details
+        )
+
+        agent_engineer_task = tasks.agent_prompt_engineering(
+            agent_engineer,
+            self.use_case,
+            self.additional_details
+        )
+
+        task_engineer_task = tasks.task_prompt_engineering(
+            task_engineer,
+            self.use_case,
+            self.additional_details
         )
 
         # lead_gen_task = tasks.lead_generation(
@@ -71,8 +86,8 @@ class CustomCrew:
 
         # Define your custom crew here
         crew = Crew(
-            agents=[prompt_engineer],
-            tasks=[prompt_engineer_task],
+            agents=[project_manager, agent_engineer, task_engineer],
+            tasks=[project_manager_task, agent_engineer_task, task_engineer_task],
             verbose=True,
         )
 
@@ -95,5 +110,5 @@ if __name__ == "__main__":
     print(result)
 
     # Now save the result to a file
-    with open("output.txt", "w") as text_file:
+    with open("tasks.txt", "w") as text_file:
         text_file.write(result)
