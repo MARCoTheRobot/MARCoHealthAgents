@@ -8,8 +8,6 @@ from crewai_tools import SerperDevTool
 search_tool = SerperDevTool()
 human_tools = load_tools(["human"])
 
-
-
 # This is an example of how to define custom agents.
 # You can define as many agents as you want.
 # You can also define custom tasks in tasks.py
