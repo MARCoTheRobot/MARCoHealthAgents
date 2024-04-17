@@ -7,3 +7,5 @@ output_old.txt
 agents.txt
 tasks.txt
 engineering/ai_project_manager/output.txt
+outputs
+ai_project_manager/outputs/

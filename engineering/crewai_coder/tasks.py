@@ -45,8 +45,9 @@ class CustomTasks:
             """
             ),
             expected_output=dedent("""\
-								A formal project plan or operational plan to tackle the given business use case in the format specified in the task description."""),
+								A formal project plan or operational plan to tackle the given business use case in the format specified in the task description. The project plan should be written using markdown and should include a definition of roles and responsibilities as well as a plan of critical tasks and sub-projects or sub-processes that need to be completed for this project or operation. The project plan should be detailed and professional, following the guidelines provided in the task description."""),
             agent=agent,
+            output_file="outputs/project_plan.md" # @Prabhat: If you just need to quickly save an output after a task is completed, you can use this parameter to specify the file path where the output should be saved.
         )
     
 
@@ -104,6 +105,7 @@ class CustomTasks:
             expected_output=dedent("""\
 								A comprehensively written list of all the agents required to complete this task, with each agent's role, backstory, goal, and tools. The agents should be written in the format specified in the task description."""),
             agent=agent,
+            callback=self.agent_generation_callback # @Prabhat: If you need to run some code after a task is completed, you can use this parameter to specify the function that should be called. I took your script from agentscript.py and put it in this function. You can modify it as needed.
         )
     def task_prompt_engineering(self, agent, use_case, additional_details):
         return Task(
@@ -229,3 +231,57 @@ class CustomTasks:
         expected_output=dedent("""\A series of multi-step, specific, and highly effective prompts to be used by the CrewAI team as a list of tasks that need to be completed. The tasks should be written in the format specified in the task description."""),
         agent=agent
         )
+    def generate_agent_function(self, agent_name, role, backstory, goal, llm_model):
+        """
+        Generate Python code for creating an agent function based on the provided description.
+        """
+        agent_function_template = f"""
+        \tdef {agent_name}(self):
+        \t\treturn Agent(
+                role="{role}",
+                backstory=dedent(\"\"\"{backstory}\"\"\"),
+                goal=dedent(\"\"\"{goal}\"\"\"),
+                # tools=[tool_1, tool_2],
+                allow_delegation=False,
+                verbose=True,
+                llm=self.OpenAIGPT35,
+            \t)
+        """
+        return agent_function_template
+
+    def agent_generation_callback(self, agent_data_raw):
+        # Convert agent_data_raw to a string
+        agent_data = agent_data_raw.raw_output.strip().split("\n\n")  # Split by empty lines
+
+        generated_functions = []
+        # @Prabhat - We should have some flexibility to change between different AI models. Especially considering, internally, we are only using Gemini at this time. Or at least set that as the default but import the others in case.
+        agent_start_code = f"""from crewai import Agent\nfrom textwrap import dedent\nfrom langchain_community.llms import OpenAI\nfrom langchain_community.llms import Ollama\nfrom langchain_openai import ChatOpenAI
+    # This is an example of how to define custom agents.\n# You can define as many agents as you want.\n# You can also define custom tasks in tasks.py
+    \nclass CustomAgents:\n\tdef __init__(self):\n\t\tself.OpenAIGPT35 = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.7)\n\t\tself.OpenAIGPT4 = ChatOpenAI(model_name="gpt-4", temperature=0.7)\n\t\tself.Ollama = Ollama(model="openhermes") 
+            """
+        generated_functions.append(agent_start_code)
+
+        for i, agent_str in enumerate(agent_data, 1):
+            agent_info = agent_str.strip().split("\n")
+            agent_name = f"agent_{i}_name"
+            role = agent_info[0].split("=")[1].strip().strip('",')
+            backstory = agent_info[1].split("=")[1].strip().strip('",')
+            goal = agent_info[2].split("=")[1].strip().strip('",')
+            tools = agent_info[3].split("=")[1].strip()
+
+            agent_function_code = self.generate_agent_function(agent_name, role, backstory, goal, tools)
+            generated_functions.append(agent_function_code)
+
+        output_file_path = "outputs/agents.py"
+
+        lines_written = 0
+        with open(output_file_path, "w") as f:
+            for function_code in generated_functions:
+                f.write(function_code)
+                f.write("\n\n")  # Add some space between each function
+                lines_written += function_code.count("\n")
+                if lines_written >= 15:
+                    f.write("\n")  # Add an extra line after every 15 lines
+                    lines_written = 0
+
+        print("\nAgent functions have been written to the output file.")

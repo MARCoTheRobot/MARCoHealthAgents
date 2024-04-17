@@ -19,7 +19,7 @@ def generate_agent_function(agent_name, role, backstory, goal, llm_model):
     return agent_function_template
 
 def main():
-    input_file_path = "agent_engineer_output.txt"  # Assuming the file is in the same directory as the script
+    input_file_path = "outputs/agent_engineer_output.txt"  # Assuming the file is in the same directory as the script
 
     try:
         with open(input_file_path, "r") as f:
@@ -46,7 +46,7 @@ def main():
         agent_function_code = generate_agent_function(agent_name, role, backstory, goal, tools)
         generated_functions.append(agent_function_code)
 
-    output_file_path = "agentworkingfinal.py"
+    output_file_path = "outputs/agents.py"
 
     lines_written = 0
     with open(output_file_path, "w") as f:
